@@ -23,15 +23,37 @@ function loadBackgroundImage(){
   
 }
 function doGreenScreen(){
-  if (foregroundImage == null || foregroundImage != foregroundImage.complete()) {
-    alert("Background Image is NOT loaded.");
+  if (foregroundImage == null) {
+    alert("Foreground Image is NOT loaded.\n\tUpload a Foreground Image");
     return;
   }
-  if (backgroundImage == null || backgroundImage != backgroundImage.complete()) {
-    alert("Background Image is NOT loaded.");
+  // if (backgroundImage == null || backgroundImage != backgroundImage.complete()) {
+  if (backgroundImage == null ) {
+    alert("Background Image is NOT loaded.\n\tUpload a Background Image");
     return;
   }
+  if (!imageSizesAreSame()) {
+    alert("The Background Image and Foreground Image are not the same size. \n\t Upload images of the same size.");
+    return;
+  }
+  backgroundImage = createComposite();
+  backgroundImage.drawTo(canvas2);
   
+}
+
+function createComposite() {
+  let compositeImage = new SimpleImage(foregroundImage.getWidth(), foregroundImage.getHeight());
+  for (let pixel of foregroundImage.values()){
+    let x = pixel.getX();
+    let y = pixel.getY();
+    if (pixel.getGreen() > pixel.getRed() + pixel.getBlue()){
+      let backgroundPixel = backgroundImage.getPixel(x, y);
+      compositeImage.setPixel(x,y, backgroundPixel);
+    } else {
+      compositeImage.setPixel(x,y, foregroundImage.getPixel(x,y));
+    }
+  }
+  return compositeImage;
 }
 function clearCanvas(){
   let id1 = "canvas1";
@@ -46,4 +68,9 @@ function clearCanvasById(canvasId){
   let canvas = document.getElementById(canvasId);
   let context = canvas.getContext("2d");
   context.clearRect(0,0, canvas.clientWidth,canvas.height);
+}
+
+function imageSizesAreSame() {
+  if (backgroundImage.width != foregroundImage.width || backgroundImage.height != foregroundImage.height) return false;
+  return true;
 }
