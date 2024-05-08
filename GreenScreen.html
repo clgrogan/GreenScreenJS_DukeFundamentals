@@ -9,7 +9,39 @@
 
   <body>
     <script src="scripts.js"></script>
-    <h1>Green Screen Online</h1>
-    <h2>HTML, CSS, JavaScript Assignment</h2>
+    <script src="http://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js"></script>
+    <script src="http://www.dukelearntoprogram.com/course1/common/js/image/SimplePixel.js"></script>
+    <section>
+      <h1>Green Screen Online</h1>
+      <h2>Programming Foundations with JavaScript, HTML and CSS assignment</h2>
+      <h3>Duke University</h3>
+    </section>
+    <section>
+      <canvas id="canvas1"></canvas>
+      <canvas id="canvas2"></canvas>
+    </section>
+    <section>
+      <label>Choose Foreground Image</label>
+      <input
+        type="file"
+        id="file1"
+        multiple="false"
+        accept="image/*"
+        onchange="loadForegroundImage()"
+      />
+      <br />
+      <label>Choose Background Image</label>
+      <input
+        type="file"
+        id="file2"
+        multiple="false"
+        accept="image/*"
+        onchange="loadBackgroundImage()"
+      />
+    </section>
+    <section>
+      <input type="button" value="Create Composite" onclick="doGreenScreen()" />
+      <input type="button" value="Clear Canvases" onclick="clearCanvas()" />
+    </section>
   </body>
 </html>
