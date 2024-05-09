@@ -2,7 +2,6 @@ let foregroundImage = null;
 let backgroundImage = null;
 
 function loadForegroundImage(){
-  alert("Executing loadForegroundImage()");
   let imageFile = document.getElementById("file1");
 
   let image1 = new SimpleImage(imageFile);
@@ -33,7 +32,9 @@ function doGreenScreen(){
     return;
   }
   if (!imageSizesAreSame()) {
-    alert("The Background Image and Foreground Image are not the same size. \n\t Upload images of the same size.");
+    alert("The Background Image and Foreground Image are not the same size. \n\t Upload images of the same size."
+    + "\n\nBackground Image size: " + backgroundImage.getWidth() + " x " + backgroundImage.getHeight()
+    + "\nForeground size: " + foregroundImage.getWidth() + " x " + foregroundImage.getHeight());
     return;
   }
   backgroundImage = createComposite();
